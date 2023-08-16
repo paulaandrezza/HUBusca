@@ -4,6 +4,7 @@ interface Theme {
     'text-primary': string;
     'text-secondary': string;
     'text-button': string;
+    'button-color': string;
     'button-hover': string;
     'button-active': string;
   };
@@ -30,8 +31,9 @@ export const theme: Theme = {
     'text-primary': '#0f172a',
     'text-secondary': '#334155',
     'text-button': '#9C404D',
+    'button-color': '#BDC5DF',
     'button-hover': '#D3DBF8',
-    'button-active': '#CDD5F4',
+    'button-active': '#E4E9FA',
   },
   fontSizes: {
     small: '0.75rem',

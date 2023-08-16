@@ -10,6 +10,8 @@ export const ButtonStyled = styled.button`
   align-items: center;
   border-radius: 6.25rem;
   border: none;
+  color: ${theme.colors['text-button']};
+  font-weight: ${theme.fontWeights.subtitle};
 
   cursor: pointer;
 
