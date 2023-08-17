@@ -106,7 +106,7 @@ export const Wrapper = styled.div<WrapperProps>`
 
 export const WrapperRow = styled.div<WrapperProps>`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: ${({ $biggerGap }) => ($biggerGap ? '64px' : '4px')};
   color: ${theme.colors['text-secondary']};
 `;
