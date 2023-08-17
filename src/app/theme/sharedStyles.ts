@@ -93,18 +93,18 @@ export const BoxContainer = styled.div`
   gap: 32px;
 `;
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 8px;
-`;
-
-interface WrapperRowProps {
+interface WrapperProps {
   $biggerGap?: boolean;
 }
 
-export const WrapperRow = styled.div<WrapperRowProps>`
+export const Wrapper = styled.div<WrapperProps>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: ${({ $biggerGap }) => ($biggerGap ? '16px' : '8px')};
+`;
+
+export const WrapperRow = styled.div<WrapperProps>`
   display: flex;
   align-items: center;
   gap: ${({ $biggerGap }) => ($biggerGap ? '64px' : '4px')};

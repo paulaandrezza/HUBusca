@@ -12,7 +12,7 @@ import { FaGithub, FaLink } from 'react-icons/fa';
 export const RepoCard = () => {
   return (
     <BoxContainer>
-      <Wrapper>
+      <Wrapper $biggerGap>
         <Title>CountDown</Title>
         <WrapperRow>
           <Chip $language={'HTML'}>HTML</Chip>
@@ -23,8 +23,14 @@ export const RepoCard = () => {
           Esse projeto tem como objetivo exibir uma contagem regressiva até o
           dia do meu aniversário que é em 25/03
         </Text>
-        <Text>Criado em: 2023-01-15 23:14:44</Text>
-        <Text>Último push: 2023-07-17 01:51:57</Text>
+        <Wrapper>
+          <Text>
+            <strong>Criado em: </strong>2023-01-15 23:14:44
+          </Text>
+          <Text>
+            <strong>Último push: </strong>2023-07-17 01:51:57
+          </Text>
+        </Wrapper>
       </Wrapper>
       <Wrapper>
         <Button href="https://github.com/paulaandrezza/Countdown">
