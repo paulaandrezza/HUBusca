@@ -17,14 +17,12 @@ export const SearchGitHubUser = () => {
   };
 
   return (
-    <main style={{ width: '800px', margin: '160px 32px' }}>
-      <SearchBar
-        value={currentProfile}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setCurrentProfile(e.target.value)
-        }
-        onKeyDown={handleKeyDown}
-      />
-    </main>
+    <SearchBar
+      value={currentProfile}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+        setCurrentProfile(e.target.value)
+      }
+      onKeyDown={handleKeyDown}
+    />
   );
 };

@@ -3,12 +3,13 @@ import {
   Text,
   Title,
   Wrapper,
+  WrapperBetween,
   WrapperRow,
 } from '@/app/theme/sharedStyles';
 import Image from 'next/image';
 import { CiLocationOn } from 'react-icons/ci';
 import { FaGithub } from 'react-icons/fa';
-import { Container, WrapperBetween } from './style';
+import { Container } from './style';
 
 export const ProfileCard = () => {
   return (
@@ -34,7 +35,7 @@ export const ProfileCard = () => {
                 <CiLocationOn />
                 <Text>Brasil</Text>
               </WrapperRow>
-              <WrapperRow>
+              <WrapperRow $biggerGap>
                 <Wrapper>
                   <Text $textSmall>
                     <strong>Seguidores:</strong>

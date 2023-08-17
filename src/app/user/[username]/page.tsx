@@ -1,12 +1,12 @@
 'use client';
 
 import { Aside } from '@/layouts/Aside';
-import { Main } from '@/layouts/Main';
+import { UserMain } from '@/layouts/UserMain';
 
-export default function Home() {
+export default function Page() {
   return (
     <>
-      <Main />
+      <UserMain />
       <Aside />
     </>
   );

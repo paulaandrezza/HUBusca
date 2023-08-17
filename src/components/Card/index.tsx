@@ -1,3 +1,5 @@
+'use client';
+
 import {
   AnchorContainer,
   Text,
@@ -6,11 +8,19 @@ import {
   WrapperRow,
 } from '@/app/theme/sharedStyles';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { CiLocationOn } from 'react-icons/ci';
 
 export const Card = () => {
+  const router = useRouter();
+
+  const handleCardClick = () => {
+    const username = 'paulaandrezza';
+    router.push(`/user/${username}`);
+  };
+
   return (
-    <AnchorContainer>
+    <AnchorContainer onClick={handleCardClick}>
       <Image
         src="https://avatars.githubusercontent.com/u/43113952?v=4"
         width={100}

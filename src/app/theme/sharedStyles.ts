@@ -110,3 +110,17 @@ export const WrapperRow = styled.div<WrapperProps>`
   gap: ${({ $biggerGap }) => ($biggerGap ? '64px' : '4px')};
   color: ${theme.colors['text-secondary']};
 `;
+
+export const WrapperArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 64px;
+`;
+
+export const WrapperBetween = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
