@@ -1,4 +1,4 @@
-# Teste Leadster
+# Desafio Click Soft
 
 ## 📑 Sobre o Projeto
 
@@ -44,6 +44,15 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
     │       └── theme.ts
     │
     ├── components
+    │   ├── Card
+    │   │   └── ...
+    │   │
+    │   ├── ProfileCard
+    │   │   └── ...
+    │   │
+    │   ├── RepoCard
+    │   │   └── ...
+    │   │
     │   ├── SearchBar
     │   │   └── ...
     │   │
@@ -52,7 +61,6 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
     │   │
     │   └── SmallCard
     │       └── ...
-    │
     │
     └── lib
         └── registry.tsx
