@@ -10,7 +10,7 @@ export const SearchBar = ({ value, onChange }: SearchBarProps) => {
   return (
     <InputContainer>
       <IoIosSearch />
-      <input value={value} onChange={onChange} />
+      <input value={value} onChange={onChange} style={{ width: '100%' }} />
     </InputContainer>
   );
 };
