@@ -1,11 +1,7 @@
 'use client';
 
-import { ProfileCard } from '@/components/ProfileCard';
+import { Main } from '@/layouts/Main';
 
 export default function Home() {
-  return (
-    <main style={{ width: '800px', margin: '160px 32px' }}>
-      <ProfileCard />
-    </main>
-  );
+  return <Main />;
 }
