@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 
-  button, select {
+  button, select, input {
     font-family: inherit;
   }
 `;

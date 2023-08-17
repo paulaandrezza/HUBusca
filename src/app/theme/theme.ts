@@ -23,6 +23,10 @@ interface Theme {
     heading: number;
     subtitle: number;
   };
+  borderRadius: {
+    button: string;
+    card: string;
+  };
 }
 
 export const theme: Theme = {
@@ -30,7 +34,7 @@ export const theme: Theme = {
     'bg-primary': '#DCE7FF',
     'text-primary': '#0f172a',
     'text-secondary': '#334155',
-    'text-button': '#9C404D',
+    'text-button': '#5F2B64',
     'button-color': '#BDC5DF',
     'button-hover': '#D3DBF8',
     'button-active': '#E4E9FA',
@@ -49,5 +53,9 @@ export const theme: Theme = {
     bold: 700,
     heading: 700,
     subtitle: 600,
+  },
+  borderRadius: {
+    button: '6.25rem',
+    card: '1rem',
   },
 };

@@ -20,7 +20,7 @@ export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 6.25rem;
+  border-radius: ${theme.borderRadius.button};
   border: none;
   color: ${theme.colors['text-button']};
   font-weight: ${theme.fontWeights.subtitle};
