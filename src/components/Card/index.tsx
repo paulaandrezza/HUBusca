@@ -7,22 +7,31 @@ import {
   Wrapper,
   WrapperRow,
 } from '@/app/theme/sharedStyles';
+import { IUser } from '@/services/interfaces/User';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { CiLocationOn } from 'react-icons/ci';
 
-export const Card = () => {
+interface CardProps {
+  userInfo: IUser | null | undefined;
+}
+
+export const Card = ({ userInfo }: CardProps) => {
   const router = useRouter();
 
   const handleCardClick = () => {
-    const username = 'paulaandrezza';
+    const username = userInfo?.login;
     router.push(`/user/${username}`);
   };
+
+  if (!userInfo) {
+    return null;
+  }
 
   return (
     <AnchorContainer onClick={handleCardClick}>
       <Image
-        src="https://avatars.githubusercontent.com/u/43113952?v=4"
+        src={userInfo.avatar_url}
         width={100}
         height={100}
         alt="Picture of the author"
@@ -30,13 +39,13 @@ export const Card = () => {
       />
       <Wrapper>
         <WrapperRow $biggerGap>
-          <Title>Paula Marinho</Title>
-          <Text>paulaandrezza</Text>
+          <Title>{userInfo.name}</Title>
+          <Text>{userInfo.login}</Text>
         </WrapperRow>
-        <Text>Full-Stack Developer</Text>
+        <Text>{userInfo.bio}</Text>
         <WrapperRow>
           <CiLocationOn />
-          <Text $textSmall>Brasil</Text>
+          <Text $textSmall>{userInfo.location}</Text>
         </WrapperRow>
       </Wrapper>
     </AnchorContainer>
