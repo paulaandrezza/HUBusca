@@ -1,11 +1,7 @@
 'use client';
 
-import { SearchGitHubUser } from '@/components/SearchGitHubUser';
+import { Main } from '@/layouts/Main';
 
 export default function Home() {
-  return (
-    <main style={{ width: '800px', margin: '160px 32px' }}>
-      <SearchGitHubUser />
-    </main>
-  );
+  return <Main />;
 }
