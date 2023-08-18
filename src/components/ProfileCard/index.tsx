@@ -6,17 +6,26 @@ import {
   WrapperBetween,
   WrapperRow,
 } from '@/app/theme/sharedStyles';
+import { IUser } from '@/services/interfaces/User';
 import Image from 'next/image';
 import { CiLocationOn } from 'react-icons/ci';
 import { FaGithub } from 'react-icons/fa';
 import { Container } from './style';
 
-export const ProfileCard = () => {
+export const ProfileCard = ({
+  userInfo,
+}: {
+  userInfo: IUser | null | undefined;
+}) => {
+  if (!userInfo) {
+    return null;
+  }
+
   return (
     <Container>
       <Wrapper>
         <Image
-          src="https://avatars.githubusercontent.com/u/43113952?v=4"
+          src={userInfo?.avatar_url}
           width={100}
           height={100}
           alt="Picture of the author"
@@ -26,11 +35,11 @@ export const ProfileCard = () => {
       <WrapperBetween>
         <Wrapper $biggerGap>
           <Wrapper>
-            <Title>Paula Marinho</Title>
+            <Title>{userInfo?.name}</Title>
           </Wrapper>
           <WrapperRow $biggerGap>
             <Wrapper>
-              <Text>Full-Stack Developer</Text>
+              <Text>{userInfo?.bio}</Text>
               <WrapperRow>
                 <CiLocationOn />
                 <Text>Brasil</Text>
@@ -40,26 +49,30 @@ export const ProfileCard = () => {
                   <Text $textSmall>
                     <strong>Seguidores:</strong>
                   </Text>
-                  <Text $textSmall>18</Text>
+                  <Text $textSmall>{userInfo?.followers}</Text>
                 </Wrapper>
                 <Wrapper>
                   <Text $textSmall>
                     <strong>Seguindo:</strong>
                   </Text>
-                  <Text $textSmall>15</Text>
+                  <Text $textSmall>{userInfo?.following}</Text>
                 </Wrapper>
               </WrapperRow>
             </Wrapper>
 
             <Wrapper>
-              <Text>paulaandrezza</Text>
-              <Text>id: 43113952</Text>
-              <Text>54 repósitórios públicos</Text>
+              <Text>{userInfo?.login}</Text>
+              <Text>id: {userInfo?.id}</Text>
+              <Text>
+                {userInfo?.public_repos} repósitório
+                {userInfo?.public_repos > 1 && 's'} público
+                {userInfo?.public_repos > 1 && 's'}
+              </Text>
             </Wrapper>
           </WrapperRow>
         </Wrapper>
         <WrapperRow>
-          <Button>
+          <Button href={userInfo.html_url} target="_blank">
             <FaGithub />
             GitHub
           </Button>

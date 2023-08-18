@@ -1,17 +1,40 @@
 import { Text, Wrapper, WrapperArea } from '@/app/theme/sharedStyles';
 import { ProfileCard } from '@/components/ProfileCard';
 import { RepoCard } from '@/components/RepoCard';
-import { SearchRepos } from '@/components/SearchRepos';
+import { SearchBar } from '@/components/SearchBar';
+import { IUser } from '@/services/interfaces/User';
+import { useState } from 'react';
 import { MainContainer } from './style';
 
-export const UserMain = () => {
+export const UserMain = ({
+  userInfo,
+}: {
+  userInfo: IUser | null | undefined;
+}) => {
+  const [currentRepo, setCurrentRepo] = useState('');
+
+  const handleKeyDown = async (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === 'Enter') {
+      // TODO: filtrar repo
+    }
+  };
+
   return (
     <MainContainer>
       <WrapperArea>
-        <SearchRepos />
+        <SearchBar
+          value={currentRepo}
+          placeholder="Pesquisar repositório"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setCurrentRepo(e.target.value)
+          }
+          onKeyDown={handleKeyDown}
+        />
         <Wrapper $biggerGap>
           <Text>Perfil do usuário:</Text>
-          <ProfileCard />
+          <ProfileCard userInfo={userInfo} />
           <RepoCard />
         </Wrapper>
       </WrapperArea>

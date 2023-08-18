@@ -1,5 +1,6 @@
 'use client';
 
+import { useUserContext } from '@/app/contexts/UserContext';
 import {
   AnchorContainer,
   Text,
@@ -17,11 +18,12 @@ interface CardProps {
 }
 
 export const Card = ({ userInfo }: CardProps) => {
+  const { setUserInfo } = useUserContext();
   const router = useRouter();
 
   const handleCardClick = () => {
-    const username = userInfo?.login;
-    router.push(`/user/${username}`);
+    setUserInfo(userInfo);
+    router.push(`/user/${userInfo?.login}`);
   };
 
   if (!userInfo) {

@@ -16,7 +16,6 @@ export const Main = () => {
     if (event.key === 'Enter') {
       const response = await getUserProfile(currentProfile);
       setUserInfo(response);
-      console.log(userInfo);
     }
   };
 
