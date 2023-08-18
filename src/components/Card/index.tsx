@@ -34,9 +34,9 @@ export const Card = ({ userInfo }: CardProps) => {
     const recentProfiles = JSON.parse(
       localStorage.getItem('recentProfiles') || '[]'
     );
-    recentProfiles.push(profileDetails);
+    recentProfiles.unshift(profileDetails);
     if (recentProfiles.length > 10) {
-      recentProfiles.shift();
+      recentProfiles.pop();
     }
     console.log(recentProfiles);
     localStorage.setItem('recentProfiles', JSON.stringify(recentProfiles));
