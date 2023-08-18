@@ -38,7 +38,7 @@ export const ProfileCard = ({
             <Title>{userInfo?.name}</Title>
           </Wrapper>
           <WrapperRow $biggerGap>
-            <Wrapper>
+            <Wrapper style={{ flex: '1', maxWidth: '60%' }}>
               <Text>{userInfo?.bio}</Text>
               <WrapperRow>
                 <CiLocationOn />
