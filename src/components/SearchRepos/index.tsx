@@ -4,7 +4,7 @@ import { SearchBar } from '@/components/SearchBar';
 import { getUserProfile } from '@/services/users/getUserProfile';
 import { useState } from 'react';
 
-export const SearchGitHubUser = () => {
+export const SearchRepos = () => {
   const [currentProfile, setCurrentProfile] = useState('');
 
   const handleKeyDown = async (
@@ -19,7 +19,7 @@ export const SearchGitHubUser = () => {
   return (
     <SearchBar
       value={currentProfile}
-      placeholder="Pesquisar usuário"
+      placeholder="Pesquisar repositório"
       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
         setCurrentProfile(e.target.value)
       }

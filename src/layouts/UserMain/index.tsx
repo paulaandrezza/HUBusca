@@ -1,14 +1,14 @@
 import { Text, Wrapper, WrapperArea } from '@/app/theme/sharedStyles';
 import { ProfileCard } from '@/components/ProfileCard';
 import { RepoCard } from '@/components/RepoCard';
-import { SearchGitHubUser } from '@/components/SearchGitHubUser';
+import { SearchRepos } from '@/components/SearchRepos';
 import { MainContainer } from './style';
 
 export const UserMain = () => {
   return (
     <MainContainer>
       <WrapperArea>
-        <SearchGitHubUser />
+        <SearchRepos />
         <Wrapper $biggerGap>
           <Text>Perfil do usuário:</Text>
           <ProfileCard />

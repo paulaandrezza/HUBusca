@@ -3,11 +3,17 @@ import { InputContainer } from './style';
 
 interface SearchBarProps {
   value: string;
+  placeholder: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export const SearchBar = ({ value, onChange, onKeyDown }: SearchBarProps) => {
+export const SearchBar = ({
+  value,
+  placeholder,
+  onChange,
+  onKeyDown,
+}: SearchBarProps) => {
   return (
     <InputContainer>
       <IoIosSearch />
@@ -16,6 +22,7 @@ export const SearchBar = ({ value, onChange, onKeyDown }: SearchBarProps) => {
         onChange={onChange}
         onKeyDown={onKeyDown}
         style={{ width: '100%' }}
+        placeholder={placeholder}
       />
     </InputContainer>
   );
