@@ -24,6 +24,22 @@ export const Card = ({ userInfo }: CardProps) => {
   const handleCardClick = () => {
     setUserInfo(userInfo);
     router.push(`/user/${userInfo?.login}`);
+
+    // TODO: remover pesquisas iguais
+    const profileDetails = {
+      login: userInfo?.login,
+      location: userInfo?.location,
+      avatar_url: userInfo?.avatar_url,
+    };
+    const recentProfiles = JSON.parse(
+      localStorage.getItem('recentProfiles') || '[]'
+    );
+    recentProfiles.push(profileDetails);
+    if (recentProfiles.length > 10) {
+      recentProfiles.shift();
+    }
+    console.log(recentProfiles);
+    localStorage.setItem('recentProfiles', JSON.stringify(recentProfiles));
   };
 
   if (!userInfo) {

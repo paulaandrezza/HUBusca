@@ -3,11 +3,19 @@
 import { useUserContext } from '@/app/contexts/UserContext';
 import { Aside } from '@/layouts/Aside';
 import { UserMain } from '@/layouts/UserMain';
+import { getUserProfile } from '@/services/users/getUserProfile';
 
-export default function Page() {
-  const { userInfo } = useUserContext();
+export default function Page({ params }: { params: { username: string } }) {
+  const { userInfo, setUserInfo } = useUserContext();
 
-  console.log(userInfo);
+  // TODO: remover useContext pois requisitar novamente garante que o link sempre funcione
+  const handlegetUserProfile = async () => {
+    if (!userInfo) {
+      const response = await getUserProfile(params.username);
+      setUserInfo(response);
+    }
+  };
+  handlegetUserProfile();
 
   return (
     <>
