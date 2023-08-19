@@ -1,15 +1,14 @@
 'use client';
 
-import { useUserContext } from '@/app/contexts/UserContext';
 import { Aside } from '@/layouts/Aside';
 import { UserMain } from '@/layouts/UserMain';
+import { IUser } from '@/services/interfaces/User';
 import { getUserProfile } from '@/services/users/getUserProfile';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Page({ params }: { params: { username: string } }) {
-  const { userInfo, setUserInfo } = useUserContext();
+  const [userInfo, setUserInfo] = useState<IUser | null | undefined>();
 
-  // TODO: remover useContext pois requisitar novamente garante que o link sempre funcione
   useEffect(() => {
     const handlegetUserProfile = async () => {
       const response = await getUserProfile(params.username);

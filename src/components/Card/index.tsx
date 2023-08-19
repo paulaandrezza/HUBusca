@@ -1,6 +1,5 @@
 'use client';
 
-import { useUserContext } from '@/app/contexts/UserContext';
 import {
   AnchorContainer,
   Text,
@@ -11,14 +10,15 @@ import {
 import { IUser } from '@/services/interfaces/User';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Dispatch, SetStateAction } from 'react';
 import { CiLocationOn } from 'react-icons/ci';
 
 interface CardProps {
   userInfo: IUser | null | undefined;
+  setUserInfo: Dispatch<SetStateAction<IUser | null | undefined>>;
 }
 
-export const Card = ({ userInfo }: CardProps) => {
-  const { setUserInfo } = useUserContext();
+export const Card = ({ userInfo, setUserInfo }: CardProps) => {
   const router = useRouter();
 
   const handleCardClick = () => {

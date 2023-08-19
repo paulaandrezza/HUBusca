@@ -33,7 +33,7 @@ export const Main = () => {
         <Wrapper $biggerGap>
           <Text>Resultados de Busca:</Text>
           {userInfo ? (
-            <Card userInfo={userInfo} />
+            <Card userInfo={userInfo} setUserInfo={setUserInfo} />
           ) : (
             <Text>Não foram encontrados resultados com esse login</Text>
           )}
