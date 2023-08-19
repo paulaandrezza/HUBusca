@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
       right: 0;
       bottom: 0;
       position: absolute;
+      z-index: -1;
       width: 100%;
       height: 50%;
       background: url("/right_bottom.png") no-repeat right bottom;
@@ -33,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
       left: 0;
       bottom: 0;
       position: absolute;
+      z-index: -1;
       width: 100%;
       height: 50%;
       background: url("/left_bottom.png") no-repeat left bottom;
