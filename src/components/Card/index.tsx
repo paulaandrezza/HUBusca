@@ -25,7 +25,6 @@ export const Card = ({ userInfo }: CardProps) => {
     setUserInfo(userInfo);
     router.push(`/user/${userInfo?.login}`);
 
-    // TODO: remover pesquisas iguais
     const profileDetails = {
       login: userInfo?.login,
       location: userInfo?.location,
@@ -34,6 +33,13 @@ export const Card = ({ userInfo }: CardProps) => {
     const recentProfiles = JSON.parse(
       localStorage.getItem('recentProfiles') || '[]'
     );
+    const existingIndex = recentProfiles.findIndex(
+      (profile: typeof profileDetails) => profile.login === userInfo?.login
+    );
+    if (existingIndex !== -1) {
+      recentProfiles.splice(existingIndex, 1);
+    }
+
     recentProfiles.unshift(profileDetails);
     if (recentProfiles.length > 10) {
       recentProfiles.pop();
