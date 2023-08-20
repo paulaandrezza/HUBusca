@@ -37,7 +37,11 @@ export async function getUserRepos(
 }
 
 const getLanguages = async (url: string) => {
-  const response = await axios.get(url);
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+    },
+  });
   return Object.keys(response.data);
 };
 

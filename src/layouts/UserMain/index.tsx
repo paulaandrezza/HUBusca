@@ -20,7 +20,7 @@ export const UserMain = ({
 }: {
   userInfo: IUser | null | undefined;
 }) => {
-  const [currentRepo, setCurrentRepo] = useState('');
+  const [currentSearch, setCurrentSearch] = useState('');
   const [repos, setRepos] = useState<IRepositorie[] | null>([]);
   const [reposToShow, setReposToShow] = useState<IRepositorie[] | null>([]);
   const [loading, setLoading] = useState(true);
@@ -28,6 +28,7 @@ export const UserMain = ({
   const [pagesRemaining, setPagesRemaining] = useState(false);
   const [reposFilteredLength, setReposFilteredLength] = useState(0);
   const [options, setOptions] = useState<{ name: string; value: string }[]>([]);
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     const getRepos = async () => {
@@ -91,7 +92,7 @@ export const UserMain = ({
   ) => {
     if (event.key === 'Enter') {
       if (repos) {
-        const searchTerm = currentRepo.trim();
+        const searchTerm = currentSearch.trim();
         if (searchTerm !== '') {
           const regex = new RegExp(searchTerm, 'i');
           const filteredRepos = repos.filter(
@@ -109,19 +110,24 @@ export const UserMain = ({
       <WrapperArea>
         <WrapperRow>
           <SearchBar
-            value={currentRepo}
+            value={currentSearch}
             placeholder="Pesquisar repositório"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setCurrentRepo(e.target.value)
+              setCurrentSearch(e.target.value)
             }
             onKeyDown={handleKeyDown}
           />
-          <Select options={options} placeholder="Lingugem" />
+          <Select
+            options={options}
+            placeholder="Linguagem"
+            filter={filter}
+            setFilter={setFilter}
+          />
         </WrapperRow>
         <Wrapper $biggerGap>
           <Text>Perfil do usuário:</Text>
           <ProfileCard userInfo={userInfo} />
-          <RepoSection loading={loading} reposToShow={reposToShow} />
+          <RepoSection loading={loading} repos={repos} filter={filter} />
           {pagesRemaining && <Button onClick={handleLoadMore}>Ver mais</Button>}
         </Wrapper>
       </WrapperArea>
