@@ -33,9 +33,7 @@ export const Select = ({
       <option value="all" disabled>
         {placeholder}
       </option>
-      <option value="all" selected>
-        Todas
-      </option>
+      <option value="all">Todas</option>
       {options.map((item: Option) => (
         <option key={item.value} value={item.value}>
           {item.name}

@@ -1,5 +1,4 @@
 import {
-  Button,
   Text,
   Wrapper,
   WrapperArea,
@@ -21,71 +20,32 @@ export const UserMain = ({
   userInfo: IUser | null | undefined;
 }) => {
   const [currentSearch, setCurrentSearch] = useState('');
+  const [currentRegexSearch, setCurrentRegexSearch] = useState<RegExp>();
   const [repos, setRepos] = useState<IRepositorie[] | null>([]);
-  const [reposToShow, setReposToShow] = useState<IRepositorie[] | null>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pagesRemaining, setPagesRemaining] = useState(false);
-  const [reposFilteredLength, setReposFilteredLength] = useState(0);
   const [options, setOptions] = useState<{ name: string; value: string }[]>([]);
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState('all');
 
-  useEffect(() => {
-    const getRepos = async () => {
-      if (userInfo) {
-        try {
-          setLoading(true);
-          const response = await getUserRepos(userInfo?.login);
-          if (response) {
-            setRepos(response);
-
-            const allLanguages: string[] = response.reduce<string[]>(
-              (languages, repo) => {
-                if (repo.languages && repo.languages.length > 0) {
-                  languages.push(...repo.languages);
-                }
-                return languages;
-              },
-              []
-            );
-
-            const uniqueLanguages = Array.from(new Set(allLanguages));
-
-            const languageOptions = uniqueLanguages.map((language) => ({
-              name: language,
-              value: language,
-            }));
-
-            setOptions(languageOptions);
-
-            setReposToShow(response.slice(0, 10));
-            setReposFilteredLength(response.length);
+  const getLanguages = (response: IRepositorie[] | null) => {
+    if (response) {
+      const allLanguages: string[] = response.reduce<string[]>(
+        (languages, repo) => {
+          if (repo.languages && repo.languages.length > 0) {
+            languages.push(...repo.languages);
           }
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-    getRepos();
-  }, [userInfo?.login]);
-
-  const handleLoadMore = () => {
-    let page = currentPage + 1;
-    setCurrentPage(currentPage + 1);
-    if (repos) {
-      setReposToShow(repos.slice(0, page * 10));
+          return languages;
+        },
+        []
+      );
+      const uniqueLanguages = Array.from(new Set(allLanguages));
+      const languageOptions = uniqueLanguages.map((language) => ({
+        name: language,
+        value: language,
+      }));
+      setOptions(languageOptions);
     }
   };
-
-  useEffect(() => {
-    if (repos && reposToShow) {
-      if (reposToShow?.length < reposFilteredLength) {
-        setPagesRemaining(true);
-      } else {
-        setPagesRemaining(false);
-      }
-    }
-  }, [reposToShow, repos, reposFilteredLength]);
 
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>
@@ -95,15 +55,31 @@ export const UserMain = ({
         const searchTerm = currentSearch.trim();
         if (searchTerm !== '') {
           const regex = new RegExp(searchTerm, 'i');
-          const filteredRepos = repos.filter(
-            (repo) => regex.test(repo.name) || regex.test(repo.description)
-          );
-          setReposToShow(filteredRepos);
-          setReposFilteredLength(setReposToShow.length);
+          setCurrentRegexSearch(regex);
+        } else {
+          setCurrentRegexSearch(undefined);
         }
       }
     }
   };
+
+  useEffect(() => {
+    const getRepos = async () => {
+      if (userInfo) {
+        try {
+          setLoading(true);
+          const response = await getUserRepos(userInfo?.login);
+          if (response) {
+            setRepos(response);
+            getLanguages(response);
+          }
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    getRepos();
+  }, [userInfo?.login]);
 
   return (
     <MainContainer>
@@ -127,8 +103,14 @@ export const UserMain = ({
         <Wrapper $biggerGap>
           <Text>Perfil do usuário:</Text>
           <ProfileCard userInfo={userInfo} />
-          <RepoSection loading={loading} repos={repos} filter={filter} />
-          {pagesRemaining && <Button onClick={handleLoadMore}>Ver mais</Button>}
+          <RepoSection
+            loading={loading}
+            repos={repos}
+            filter={filter}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            currentRegexSearch={currentRegexSearch}
+          />
         </Wrapper>
       </WrapperArea>
     </MainContainer>
