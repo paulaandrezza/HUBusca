@@ -16,9 +16,9 @@ export const Select = ({ options, placeholder }: SelectProps) => {
       <option value="" disabled selected>
         {placeholder}
       </option>
-      {options.map((option: Option) => (
-        <option key={option.value} value={option.value}>
-          {option.name}
+      {options.map((item: Option) => (
+        <option key={item.value} value={item.value}>
+          {item.name}
         </option>
       ))}
     </SelectStyled>

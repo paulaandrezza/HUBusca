@@ -1,11 +1,18 @@
-import { Button, Text, Wrapper, WrapperArea } from '@/app/theme/sharedStyles';
+import {
+  Button,
+  Text,
+  Wrapper,
+  WrapperArea,
+  WrapperRow,
+} from '@/app/theme/sharedStyles';
 import { ProfileCard } from '@/components/ProfileCard';
-import { RepoCard } from '@/components/RepoCard';
 import { SearchBar } from '@/components/SearchBar';
+import { Select } from '@/components/Select';
 import { IRepositorie } from '@/services/interfaces/Repositore';
 import { IUser } from '@/services/interfaces/User';
 import { getUserRepos } from '@/services/users/getUserRepos';
 import { useEffect, useState } from 'react';
+import { RepoSection } from './RepoSection';
 import { MainContainer } from './style';
 
 export const UserMain = ({
@@ -20,6 +27,7 @@ export const UserMain = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesRemaining, setPagesRemaining] = useState(false);
   const [reposFilteredLength, setReposFilteredLength] = useState(0);
+  const [options, setOptions] = useState<{ name: string; value: string }[]>([]);
 
   useEffect(() => {
     const getRepos = async () => {
@@ -29,6 +37,26 @@ export const UserMain = ({
           const response = await getUserRepos(userInfo?.login);
           if (response) {
             setRepos(response);
+
+            const allLanguages: string[] = response.reduce<string[]>(
+              (languages, repo) => {
+                if (repo.languages && repo.languages.length > 0) {
+                  languages.push(...repo.languages);
+                }
+                return languages;
+              },
+              []
+            );
+
+            const uniqueLanguages = Array.from(new Set(allLanguages));
+
+            const languageOptions = uniqueLanguages.map((language) => ({
+              name: language,
+              value: language,
+            }));
+
+            setOptions(languageOptions);
+
             setReposToShow(response.slice(0, 10));
             setReposFilteredLength(response.length);
           }
@@ -79,24 +107,21 @@ export const UserMain = ({
   return (
     <MainContainer>
       <WrapperArea>
-        <SearchBar
-          value={currentRepo}
-          placeholder="Pesquisar repositório"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setCurrentRepo(e.target.value)
-          }
-          onKeyDown={handleKeyDown}
-        />
+        <WrapperRow>
+          <SearchBar
+            value={currentRepo}
+            placeholder="Pesquisar repositório"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setCurrentRepo(e.target.value)
+            }
+            onKeyDown={handleKeyDown}
+          />
+          <Select options={options} placeholder="Lingugem" />
+        </WrapperRow>
         <Wrapper $biggerGap>
           <Text>Perfil do usuário:</Text>
           <ProfileCard userInfo={userInfo} />
-          {loading ? (
-            <p>Carregando...</p>
-          ) : (
-            reposToShow?.map((repo: IRepositorie) => (
-              <RepoCard key={repo.id} repoInfo={repo} />
-            ))
-          )}
+          <RepoSection loading={loading} reposToShow={reposToShow} />
           {pagesRemaining && <Button onClick={handleLoadMore}>Ver mais</Button>}
         </Wrapper>
       </WrapperArea>
