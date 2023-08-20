@@ -18,10 +18,11 @@ desenvolvimento web.
 Durante o desenvolvimento do projeto, foram tomadas algumas decisões importantes para garantir a
 qualidade, organização e eficiência do código. Abaixo estão as tecnologias utilizadas.
 
-- NextJs
-- TypeScript
-- Styled-Components
-- React-Icons
+- [NextJs](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Styled-Components](https://styled-components.com/)
+- [React-Icons](https://react-icons.github.io/react-icons/)
+- [Axios](https://axios-http.com/ptbr/docs/intro)
 
 <br>
 
@@ -38,10 +39,13 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
     │   ├── favicon.ico
     │   ├── layout.tsx
     │   ├── page.tsx
-    │   └── theme
-    │       ├── globalStyles.ts
-    │       ├── shared.ts
-    │       └── theme.ts
+    │   ├── theme
+    │   │   ├── globalStyles.ts
+    │   │   ├── shared.ts
+    │   │   └── theme.ts
+    │   └── user
+    │       └── [username]
+    │           └── page.tsx
     │
     ├── components
     │   ├── Card
@@ -66,22 +70,21 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
         └── registry.tsx
 ```
 
-- Na pasta `public`, encontramos os arquivos estáticos relacionados à aplicação. Todos esses
+- No diretório `public`, encontramos os arquivos estáticos relacionados à aplicação. Todos esses
   arquivos são acessíveis publicamente.
 
-- Dentro da pasta `src`, encontramos a pasta `app` que define a estrutura principal,
-  contendo os arquivos:
+- Dentro do diretório src, encontra-se a pasta app, que serve como a espinha dorsal da aplicação. Esta pasta contém diversos elementos-chave:
 
-  - `favicon.ico`, ícone da página
-  - `layout.tsx`, é uma interface compartilhada entre rotas.
-  - `page.tsx`, interface exclusiva para uma rota.
-  - além da pasta `theme` que contém os arquivos relacionados a estilos globais e compartilhados da
-    aplicação.
+  - `favicon.ico`: Este arquivo representa o ícone exibido na aba do navegador.
+  - `layout.tsx`: Trata-se de um componente que descreve a estrutura visual compartilhada entre várias páginas.
+  - `page.tsx`, atua como um componente central que encapsula o conteúdo e a lógica associados a rota raiz da aplicação.
+  - `theme`: Este diretório contém os arquivos relacionados aos estilos globais e compartilhados da aplicação, garantindo uma aparência consistente em todo o aplicativo.
+  - `user`: Dentro dessa pasta encontra-se a pasta `[username]`, que representa uma rota dinâmica. Esta rota contém o arquivo `page.tsx`, que desempenha o papel crucial na renderização da página específica para essa rota. Isso permite que diferentes páginas sejam criadas dinamicamente com base em diferentes valores de `[username]`.
 
-- Dentro da pasta `components`, temos diversos componentes reutilizáveis, como `SearchBar`, `Select` e
+- Dentro do diretório `components`, temos diversos componentes reutilizáveis, como `Card`, `ProfileCard`, `RepoCard`, `SearchBar`, `Select` e
   `SmallCard`, cada um com sua estrutura de arquivos específica.
 
-- A pasta `lib` contém o arquivo `registry.tsx` que é responsável por lidar com a renderização
+- O diretório `lib` contém o arquivo `registry.tsx` que é responsável por lidar com a renderização
   correta e o gerenciamento de estilos do pacote Styled Components em uma aplicação Next.js.
 
 <br>
@@ -156,7 +159,7 @@ Para instalar e usar o projeto "teste-leadster", siga as instruções abaixo:
    ambiente de desenvolvimento.
 
 É possível acessar o deploy do projeto no seguinte link:
-[Desafio Click Soft]().
+[Desafio Click Soft](https://desafio-click-soft.vercel.app/).
 
 <br>
 
