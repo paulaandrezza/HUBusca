@@ -19,6 +19,7 @@ export const UserMain = ({
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesRemaining, setPagesRemaining] = useState(false);
+  const [reposFilteredLength, setReposFilteredLength] = useState(0);
 
   useEffect(() => {
     const getRepos = async () => {
@@ -29,6 +30,7 @@ export const UserMain = ({
           if (response) {
             setRepos(response);
             setReposToShow(response.slice(0, 10));
+            setReposFilteredLength(response.length);
           }
         } finally {
           setLoading(false);
@@ -48,19 +50,29 @@ export const UserMain = ({
 
   useEffect(() => {
     if (repos && reposToShow) {
-      if (reposToShow?.length < repos?.length) {
+      if (reposToShow?.length < reposFilteredLength) {
         setPagesRemaining(true);
       } else {
         setPagesRemaining(false);
       }
     }
-  }, [reposToShow, repos]);
+  }, [reposToShow, repos, reposFilteredLength]);
 
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === 'Enter') {
-      // TODO: filtrar repo
+      if (repos) {
+        const searchTerm = currentRepo.trim();
+        if (searchTerm !== '') {
+          const regex = new RegExp(searchTerm, 'i');
+          const filteredRepos = repos.filter(
+            (repo) => regex.test(repo.name) || regex.test(repo.description)
+          );
+          setReposToShow(filteredRepos);
+          setReposFilteredLength(setReposToShow.length);
+        }
+      }
     }
   };
 
