@@ -7,6 +7,8 @@ const quicksand = Quicksand({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'HUBusca',
+  description:
+    'Explore perfis e repositórios no GitHub de forma fácil e rápida com o HUBusca.',
 };
 
 export default function RootLayout({
