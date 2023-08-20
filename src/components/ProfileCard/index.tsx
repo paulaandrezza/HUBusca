@@ -40,10 +40,12 @@ export const ProfileCard = ({
           <WrapperRow $biggerGap>
             <Wrapper style={{ flex: '1', maxWidth: '60%' }}>
               <Text>{userInfo?.bio}</Text>
-              <WrapperRow>
-                <CiLocationOn />
-                <Text>Brasil</Text>
-              </WrapperRow>
+              {userInfo.location && (
+                <WrapperRow style={{ alignItems: 'center' }}>
+                  <CiLocationOn />
+                  <Text>{userInfo.location}</Text>
+                </WrapperRow>
+              )}
               <WrapperRow $biggerGap>
                 <Wrapper>
                   <Text $textSmall>
