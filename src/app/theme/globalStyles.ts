@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
       content: "";
       right: 0;
       bottom: 0;
-      position: absolute;
+      position: fixed;
       z-index: -1;
       width: 100%;
       height: 50%;
@@ -33,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
       content: "";
       left: 0;
       bottom: 0;
-      position: absolute;
+      position: fixed;
       z-index: -1;
       width: 100%;
       height: 50%;

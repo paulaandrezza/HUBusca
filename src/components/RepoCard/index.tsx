@@ -12,8 +12,6 @@ import { IRepositorie } from '@/services/interfaces/Repositore';
 import { FaGithub, FaLink } from 'react-icons/fa';
 
 export const RepoCard = ({ repoInfo }: { repoInfo: IRepositorie }) => {
-  console.log(repoInfo.languages);
-
   return (
     <BoxContainer>
       <WrapperBetween>

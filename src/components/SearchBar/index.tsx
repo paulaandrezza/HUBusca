@@ -23,6 +23,7 @@ export const SearchBar = ({
         onKeyDown={onKeyDown}
         style={{ width: '100%' }}
         placeholder={placeholder}
+        autoFocus
       />
     </InputContainer>
   );
