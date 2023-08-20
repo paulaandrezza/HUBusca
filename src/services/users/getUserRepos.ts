@@ -11,7 +11,11 @@ export async function getUserRepos(
     let url = `https://api.github.com/users/${username}/repos`;
 
     while (pagesRemaining) {
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+        },
+      });
 
       const parsedData = await parseData(response.data);
       allRepos = [...allRepos, ...parsedData];
