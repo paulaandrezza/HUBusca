@@ -122,6 +122,12 @@ export const WrapperArea = styled.div`
 
 export const WrapperBetween = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  gap: 8px;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
 `;

@@ -6,5 +6,11 @@ export const Container = styled.div`
   padding: 16px 32px;
 
   display: flex;
-  gap: 32px;
+  flex-direction: column;
+  gap: 8px;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    gap: 32px;
+  }
 `;
