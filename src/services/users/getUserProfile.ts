@@ -4,7 +4,12 @@ import { IUser } from '../interfaces/User';
 export async function getUserProfile(username: string): Promise<IUser | null> {
   try {
     const response = await axios.get<IUser>(
-      `https://api.github.com/users/${username}`
+      `https://api.github.com/users/${username}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+        },
+      }
     );
 
     const {
