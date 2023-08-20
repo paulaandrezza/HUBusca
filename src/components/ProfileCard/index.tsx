@@ -23,7 +23,7 @@ export const ProfileCard = ({
 
   return (
     <Container>
-      <Wrapper style={{ alignItems: 'center' }}>
+      <Wrapper>
         <Image
           src={userInfo?.avatar_url}
           width={100}
