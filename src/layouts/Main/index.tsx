@@ -13,6 +13,9 @@ import { useState } from 'react';
 export const Main = () => {
   const [currentProfile, setCurrentProfile] = useState('');
   const [userInfo, setUserInfo] = useState<IUser | null | undefined>();
+  const [message, setMessage] = useState(
+    'Insira o login de um usuário na barra de pesquisa para procurar'
+  );
 
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>
@@ -20,6 +23,9 @@ export const Main = () => {
     if (event.key === 'Enter') {
       const response = await getUserProfile(currentProfile);
       setUserInfo(response);
+      if (!response) {
+        setMessage('Nenhum usuário encontrado com esse login');
+      }
     }
   };
 
@@ -41,11 +47,7 @@ export const Main = () => {
           {userInfo ? (
             <Card userInfo={userInfo} setUserInfo={setUserInfo} />
           ) : (
-            <Text>
-              {currentProfile
-                ? 'Nenhum usuário encontrado com esse login'
-                : 'Insira o login de um usuário na barra de pesquisa para procurar'}
-            </Text>
+            <Text>{message}</Text>
           )}
         </Wrapper>
       </MainContainer>
