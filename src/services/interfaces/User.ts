@@ -6,7 +6,7 @@ export interface IUser {
   login: string;
   name: string;
   location: string;
-  url: string;
+  html_url: string;
   blog: string;
   bio: string;
   followers: number;

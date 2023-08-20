@@ -7,7 +7,5 @@ export interface IRepositorie {
   created_at: string;
   updated_at: string;
   pushed_at: string;
-  languages: {
-    [language: string]: number;
-  };
+  languages: string[];
 }

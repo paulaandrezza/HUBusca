@@ -4,24 +4,32 @@ import {
   Wrapper,
   WrapperRow,
 } from '@/app/theme/sharedStyles';
+import { IUser } from '@/services/interfaces/User';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { CiLocationOn } from 'react-icons/ci';
 
-export const SmallCard = () => {
+export const SmallCard = ({ userInfo }: { userInfo: IUser | undefined }) => {
+  const router = useRouter();
+
+  if (!userInfo) {
+    return null;
+  }
+
   return (
-    <AnchorContainer>
+    <AnchorContainer onClick={() => router.push(`/user/${userInfo?.login}`)}>
       <Image
-        src="https://avatars.githubusercontent.com/u/43113952?v=4"
+        src={userInfo?.avatar_url}
         width={50}
         height={50}
         alt="Picture of the author"
         style={{ borderRadius: '100%' }}
       />
       <Wrapper>
-        <Text>paulaandrezza</Text>
+        <Text>{userInfo?.login}</Text>
         <WrapperRow>
           <CiLocationOn />
-          <Text $textSmall>Brasil</Text>
+          <Text $textSmall>{userInfo?.location}</Text>
         </WrapperRow>
       </Wrapper>
     </AnchorContainer>

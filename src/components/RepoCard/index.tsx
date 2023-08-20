@@ -8,41 +8,47 @@ import {
   WrapperBetween,
   WrapperRow,
 } from '@/app/theme/sharedStyles';
+import { IRepositorie } from '@/services/interfaces/Repositore';
 import { FaGithub, FaLink } from 'react-icons/fa';
 
-export const RepoCard = () => {
+export const RepoCard = ({ repoInfo }: { repoInfo: IRepositorie }) => {
+  console.log(repoInfo.languages);
+
   return (
     <BoxContainer>
       <WrapperBetween>
         <Wrapper $biggerGap>
-          <Title>CountDown</Title>
+          <Title>{repoInfo.name}</Title>
           <WrapperRow>
-            <Chip $language={'HTML'}>HTML</Chip>
-            <Chip $language={'JavaScript'}>JavaScript</Chip>
-            <Chip $language={'CSS'}>CSS</Chip>
+            {repoInfo.languages.map((language) => (
+              <Chip key={language} $language={language}>
+                {language}
+              </Chip>
+            ))}
           </WrapperRow>
-          <Text>
-            Esse projeto tem como objetivo exibir uma contagem regressiva até o
-            dia do meu aniversário que é em 25/03
-          </Text>
+          <Text>{repoInfo.description}</Text>
           <Wrapper>
             <Text>
-              <strong>Criado em: </strong>2023-01-15 23:14:44
+              <strong>Criado em: </strong>
+              {repoInfo.created_at}
             </Text>
             <Text>
-              <strong>Último push: </strong>2023-07-17 01:51:57
+              <strong>Último push: </strong>
+              {repoInfo.pushed_at}
             </Text>
           </Wrapper>
         </Wrapper>
-        <Wrapper>
-          <Button href="https://github.com/paulaandrezza/Countdown">
+        <Wrapper style={{ justifyContent: 'flex-start' }}>
+          <Button href={repoInfo.html_url}>
             <FaGithub />
             Repositório
           </Button>
-          <Button href="https://paulaandrezza.github.io/Countdown/">
-            <FaLink />
-            Deploy
-          </Button>
+          {repoInfo.homepage && (
+            <Button href={repoInfo.homepage}>
+              <FaLink />
+              Deploy
+            </Button>
+          )}
         </Wrapper>
       </WrapperBetween>
     </BoxContainer>
