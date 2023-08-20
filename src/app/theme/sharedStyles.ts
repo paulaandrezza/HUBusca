@@ -109,6 +109,7 @@ export const WrapperRow = styled.div<WrapperProps>`
   align-items: flex-start;
   gap: ${({ $biggerGap }) => ($biggerGap ? '64px' : '4px')};
   color: ${theme.colors['text-secondary']};
+  flex-wrap: wrap;
 `;
 
 export const WrapperArea = styled.div`
