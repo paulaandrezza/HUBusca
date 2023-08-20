@@ -20,7 +20,7 @@ export const Aside = () => {
       <WrapperArea>
         <RightAlign>
           <Image
-            src="/logo.png"
+            src="/logo.svg"
             width={159}
             height={43}
             alt="Logo da ClickSoft"
