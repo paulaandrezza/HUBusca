@@ -10,7 +10,7 @@ import { IUser } from '@/services/interfaces/User';
 import Image from 'next/image';
 import { CiLocationOn } from 'react-icons/ci';
 import { FaGithub } from 'react-icons/fa';
-import { Container } from './style';
+import { Container, FollowInfo } from './style';
 
 export const ProfileCard = ({
   userInfo,
@@ -46,7 +46,7 @@ export const ProfileCard = ({
                   <Text>{userInfo.location}</Text>
                 </WrapperRow>
               )}
-              <WrapperRow $biggerGap>
+              <FollowInfo>
                 <Wrapper>
                   <Text $textSmall>
                     <strong>Seguidores:</strong>
@@ -59,14 +59,20 @@ export const ProfileCard = ({
                   </Text>
                   <Text $textSmall>{userInfo?.following}</Text>
                 </Wrapper>
-              </WrapperRow>
+              </FollowInfo>
             </Wrapper>
 
             <Wrapper>
-              <Text>{userInfo?.login}</Text>
-              <Text>id: {userInfo?.id}</Text>
               <Text>
-                {userInfo?.public_repos} repósitório
+                <strong>login: </strong>
+                {userInfo?.login}
+              </Text>
+              <Text>
+                <strong>id: </strong>
+                {userInfo?.id}
+              </Text>
+              <Text>
+                <strong>{userInfo?.public_repos}</strong> repósitório
                 {userInfo?.public_repos > 1 && 's'} público
                 {userInfo?.public_repos > 1 && 's'}
               </Text>

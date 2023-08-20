@@ -14,3 +14,9 @@ export const Container = styled.div`
     gap: 32px;
   }
 `;
+
+export const FollowInfo = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+`;
