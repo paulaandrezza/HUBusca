@@ -1,7 +1,7 @@
 import {
+  HeaderContainer,
   Text,
   Wrapper,
-  WrapperArea,
   WrapperRow,
 } from '@/app/theme/sharedStyles';
 import { ProfileCard } from '@/components/ProfileCard';
@@ -82,8 +82,8 @@ export const UserMain = ({
   }, [userInfo?.login]);
 
   return (
-    <MainContainer>
-      <WrapperArea>
+    <>
+      <HeaderContainer>
         <WrapperRow>
           <SearchBar
             value={currentSearch}
@@ -100,6 +100,8 @@ export const UserMain = ({
             setFilter={setFilter}
           />
         </WrapperRow>
+      </HeaderContainer>
+      <MainContainer>
         <Wrapper $biggerGap>
           <Text>Perfil do usuário:</Text>
           <ProfileCard userInfo={userInfo} />
@@ -112,7 +114,7 @@ export const UserMain = ({
             currentRegexSearch={currentRegexSearch}
           />
         </Wrapper>
-      </WrapperArea>
-    </MainContainer>
+      </MainContainer>
+    </>
   );
 };

@@ -131,3 +131,7 @@ export const WrapperBetween = styled.div`
     flex-direction: row;
   }
 `;
+
+export const HeaderContainer = styled.div`
+  grid-area: header;
+`;

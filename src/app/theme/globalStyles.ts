@@ -14,14 +14,18 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
 
     display: grid;
-    grid-template-columns: 4fr;
-    grid-template-areas: "main";
-    gap: 64px;
+    grid-template-rows: 1fr 1fr auto;
+    grid-template-areas: "logo" "header" "main";
+    gap: 16px;
 
     @media screen and (min-width: 768px) {
       padding: 64px 128px;
       grid-template-columns: 4fr 1fr;
-      grid-template-areas: "main aside";
+      grid-template-rows: 1fr auto;
+      grid-template-areas: 
+      "header logo"
+      "main aside";
+      gap: 64px;
     }
 
     &:after {

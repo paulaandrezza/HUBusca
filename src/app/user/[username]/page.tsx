@@ -1,6 +1,7 @@
 'use client';
 
 import { Aside } from '@/layouts/Aside';
+import { Logo } from '@/layouts/Logo';
 import { UserMain } from '@/layouts/UserMain';
 import { IUser } from '@/services/interfaces/User';
 import { getUserProfile } from '@/services/users/getUserProfile';
@@ -20,6 +21,7 @@ export default function Page({ params }: { params: { username: string } }) {
 
   return (
     <>
+      <Logo />
       <UserMain userInfo={userInfo} />
       <Aside />
     </>

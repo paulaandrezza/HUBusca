@@ -1,4 +1,4 @@
-import { Text, Wrapper, WrapperArea } from '@/app/theme/sharedStyles';
+import { HeaderContainer, Text, Wrapper } from '@/app/theme/sharedStyles';
 import { Card } from '@/components/Card';
 import { SearchBar } from '@/components/SearchBar';
 import { IUser } from '@/services/interfaces/User';
@@ -20,8 +20,8 @@ export const Main = () => {
   };
 
   return (
-    <MainContainer>
-      <WrapperArea>
+    <>
+      <HeaderContainer>
         <SearchBar
           value={currentProfile}
           placeholder="Pesquisar usuário"
@@ -30,6 +30,8 @@ export const Main = () => {
           }
           onKeyDown={handleKeyDown}
         />
+      </HeaderContainer>
+      <MainContainer>
         <Wrapper $biggerGap>
           <Text>Resultados de Busca:</Text>
           {userInfo ? (
@@ -42,7 +44,7 @@ export const Main = () => {
             </Text>
           )}
         </Wrapper>
-      </WrapperArea>
-    </MainContainer>
+      </MainContainer>
+    </>
   );
 };
