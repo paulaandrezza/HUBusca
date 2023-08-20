@@ -35,7 +35,11 @@ export const Main = () => {
           {userInfo ? (
             <Card userInfo={userInfo} setUserInfo={setUserInfo} />
           ) : (
-            <Text>Não foram encontrados resultados com esse login</Text>
+            <Text>
+              {currentProfile
+                ? 'Nenhum usuário encontrado com esse login'
+                : 'Insira o login de um usuário na barra de pesquisa para procurar'}
+            </Text>
           )}
         </Wrapper>
       </WrapperArea>
