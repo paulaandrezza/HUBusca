@@ -1,8 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { RightAlign } from './style';
+import { Dispatch, SetStateAction } from 'react';
+import { MenuIcon, RightAlign } from './style';
 
-export const Logo = () => {
+export const Logo = ({
+  isAsideOpen,
+  setIsAsideOpen,
+}: {
+  isAsideOpen: boolean;
+  setIsAsideOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   return (
     <RightAlign>
       <Link href="/">
@@ -13,6 +20,14 @@ export const Logo = () => {
           alt="Logo da ClickSoft"
         />
       </Link>
+      <MenuIcon
+        onClick={() => setIsAsideOpen(!isAsideOpen)}
+        isOpen={isAsideOpen}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </MenuIcon>
     </RightAlign>
   );
 };

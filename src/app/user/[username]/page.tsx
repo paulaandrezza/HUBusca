@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 
 export default function Page({ params }: { params: { username: string } }) {
   const [userInfo, setUserInfo] = useState<IUser | null | undefined>();
+  const [isAsideOpen, setIsAsideOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handlegetUserProfile = async () => {
@@ -21,9 +22,9 @@ export default function Page({ params }: { params: { username: string } }) {
 
   return (
     <>
-      <Logo />
+      <Logo isAsideOpen={isAsideOpen} setIsAsideOpen={setIsAsideOpen} />
       <UserMain userInfo={userInfo} />
-      <Aside />
+      <Aside isAsideOpen={isAsideOpen} />
     </>
   );
 }
