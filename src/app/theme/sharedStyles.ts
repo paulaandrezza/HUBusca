@@ -112,14 +112,6 @@ export const WrapperRow = styled.div<WrapperProps>`
   flex-wrap: wrap;
 `;
 
-export const WrapperArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  gap: 64px;
-`;
-
 export const WrapperBetween = styled.div`
   display: flex;
   flex-direction: column;
