@@ -13,7 +13,7 @@ export async function getUserRepos(
     while (pagesRemaining) {
       const response = await axios.get(url);
 
-      const parsedData = parseData(response.data);
+      const parsedData = await parseData(response.data);
       allRepos = [...allRepos, ...parsedData];
 
       const linkHeader = response.headers.link;
@@ -32,20 +32,30 @@ export async function getUserRepos(
   }
 }
 
-function parseData(data: any) {
+const getLanguages = async (url: string) => {
+  const response = await axios.get(url);
+  return Object.keys(response.data);
+};
+
+async function parseData(data: any) {
   // If the data is an array, return that
   if (Array.isArray(data)) {
-    const formattedRepos = data.map((repo) => ({
-      id: repo.id,
-      name: repo.name,
-      html_url: repo.html_url,
-      homepage: repo.homepage,
-      description: repo.description,
-      created_at: repo.created_at,
-      updated_at: repo.updated_at,
-      pushed_at: repo.pushed_at,
-      languages: [],
-    }));
+    const formattedRepos = await Promise.all(
+      data.map(async (repo) => {
+        const languages = await getLanguages(repo.languages_url);
+        return {
+          id: repo.id,
+          name: repo.name,
+          html_url: repo.html_url,
+          homepage: repo.homepage,
+          description: repo.description,
+          created_at: repo.created_at,
+          updated_at: repo.updated_at,
+          pushed_at: repo.pushed_at,
+          languages: languages,
+        };
+      })
+    );
 
     return formattedRepos;
   }

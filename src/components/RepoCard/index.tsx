@@ -12,15 +12,19 @@ import { IRepositorie } from '@/services/interfaces/Repositore';
 import { FaGithub, FaLink } from 'react-icons/fa';
 
 export const RepoCard = ({ repoInfo }: { repoInfo: IRepositorie }) => {
+  console.log(repoInfo.languages);
+
   return (
     <BoxContainer>
       <WrapperBetween>
         <Wrapper $biggerGap>
           <Title>{repoInfo.name}</Title>
           <WrapperRow>
-            <Chip $language={'HTML'}>HTML</Chip>
-            <Chip $language={'JavaScript'}>JavaScript</Chip>
-            <Chip $language={'CSS'}>CSS</Chip>
+            {repoInfo.languages.map((language) => (
+              <Chip key={language} $language={language}>
+                {language}
+              </Chip>
+            ))}
           </WrapperRow>
           <Text>{repoInfo.description}</Text>
           <Wrapper>
