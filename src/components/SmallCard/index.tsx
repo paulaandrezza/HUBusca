@@ -27,10 +27,12 @@ export const SmallCard = ({ userInfo }: { userInfo: IUser | undefined }) => {
       />
       <Wrapper>
         <Text>{userInfo?.login}</Text>
-        <WrapperRow>
-          <CiLocationOn />
-          <Text $textSmall>{userInfo?.location}</Text>
-        </WrapperRow>
+        {userInfo.location && (
+          <WrapperRow style={{ alignItems: 'center' }}>
+            <CiLocationOn />
+            <Text $textSmall>{userInfo.location}</Text>
+          </WrapperRow>
+        )}
       </Wrapper>
     </AnchorContainer>
   );
