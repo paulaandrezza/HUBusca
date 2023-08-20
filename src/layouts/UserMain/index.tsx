@@ -15,7 +15,10 @@ export const UserMain = ({
 }) => {
   const [currentRepo, setCurrentRepo] = useState('');
   const [repos, setRepos] = useState<IRepositorie[] | null>([]);
+  const [reposToShow, setReposToShow] = useState<IRepositorie[] | null>([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pagesRemaining, setPagesRemaining] = useState(false);
 
   useEffect(() => {
     const getRepos = async () => {
@@ -25,6 +28,7 @@ export const UserMain = ({
           const response = await getUserRepos(userInfo?.login);
           if (response) {
             setRepos(response);
+            setReposToShow(response.slice(0, 10));
           }
         } finally {
           setLoading(false);
@@ -33,6 +37,24 @@ export const UserMain = ({
     };
     getRepos();
   }, [userInfo?.login]);
+
+  const handleLoadMore = () => {
+    let page = currentPage + 1;
+    setCurrentPage(currentPage + 1);
+    if (repos) {
+      setReposToShow(repos.slice(0, page * 10));
+    }
+  };
+
+  useEffect(() => {
+    if (repos && reposToShow) {
+      if (reposToShow?.length < repos?.length) {
+        setPagesRemaining(true);
+      } else {
+        setPagesRemaining(false);
+      }
+    }
+  }, [reposToShow, repos]);
 
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>
@@ -59,11 +81,11 @@ export const UserMain = ({
           {loading ? (
             <p>Carregando...</p>
           ) : (
-            repos?.map((repo: IRepositorie) => (
+            reposToShow?.map((repo: IRepositorie) => (
               <RepoCard key={repo.id} repoInfo={repo} />
             ))
           )}
-          <Button>Ver mais</Button>
+          {pagesRemaining && <Button onClick={handleLoadMore}>Ver mais</Button>}
         </Wrapper>
       </WrapperArea>
     </MainContainer>
