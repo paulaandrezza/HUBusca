@@ -15,13 +15,19 @@ export const UserMain = ({
 }) => {
   const [currentRepo, setCurrentRepo] = useState('');
   const [repos, setRepos] = useState<IRepositorie[] | null>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getRepos = async () => {
       if (userInfo) {
-        const response = await getUserRepos(userInfo?.login);
-        if (response) {
-          setRepos(response);
+        try {
+          setLoading(true);
+          const response = await getUserRepos(userInfo?.login);
+          if (response) {
+            setRepos(response);
+          }
+        } finally {
+          setLoading(false);
         }
       }
     };
@@ -50,9 +56,13 @@ export const UserMain = ({
         <Wrapper $biggerGap>
           <Text>Perfil do usuário:</Text>
           <ProfileCard userInfo={userInfo} />
-          {repos?.map((repo: IRepositorie) => (
-            <RepoCard key={repo.id} repoInfo={repo} />
-          ))}
+          {loading ? (
+            <p>Carregando...</p>
+          ) : (
+            repos?.map((repo: IRepositorie) => (
+              <RepoCard key={repo.id} repoInfo={repo} />
+            ))
+          )}
           <Button>Ver mais</Button>
         </Wrapper>
       </WrapperArea>
