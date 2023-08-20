@@ -1,14 +1,21 @@
-import { Text, Wrapper, WrapperArea } from '@/app/theme/sharedStyles';
+import {
+  HeaderContainer,
+  MainContainer,
+  Text,
+  Wrapper,
+} from '@/app/theme/sharedStyles';
 import { Card } from '@/components/Card';
 import { SearchBar } from '@/components/SearchBar';
 import { IUser } from '@/services/interfaces/User';
 import { getUserProfile } from '@/services/users/getUserProfile';
 import { useState } from 'react';
-import { MainContainer } from './style';
 
 export const Main = () => {
   const [currentProfile, setCurrentProfile] = useState('');
   const [userInfo, setUserInfo] = useState<IUser | null | undefined>();
+  const [message, setMessage] = useState(
+    'Insira o login de um usuário na barra de pesquisa para procurar'
+  );
 
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>
@@ -16,12 +23,15 @@ export const Main = () => {
     if (event.key === 'Enter') {
       const response = await getUserProfile(currentProfile);
       setUserInfo(response);
+      if (!response) {
+        setMessage('Nenhum usuário encontrado com esse login');
+      }
     }
   };
 
   return (
-    <MainContainer>
-      <WrapperArea>
+    <>
+      <HeaderContainer>
         <SearchBar
           value={currentProfile}
           placeholder="Pesquisar usuário"
@@ -30,19 +40,17 @@ export const Main = () => {
           }
           onKeyDown={handleKeyDown}
         />
+      </HeaderContainer>
+      <MainContainer>
         <Wrapper $biggerGap>
           <Text>Resultados de Busca:</Text>
           {userInfo ? (
             <Card userInfo={userInfo} setUserInfo={setUserInfo} />
           ) : (
-            <Text>
-              {currentProfile
-                ? 'Nenhum usuário encontrado com esse login'
-                : 'Insira o login de um usuário na barra de pesquisa para procurar'}
-            </Text>
+            <Text>{message}</Text>
           )}
         </Wrapper>
-      </WrapperArea>
-    </MainContainer>
+      </MainContainer>
+    </>
   );
 };

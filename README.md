@@ -18,11 +18,11 @@ desenvolvimento web.
 Durante o desenvolvimento do projeto, foram tomadas algumas decisões importantes para garantir a
 qualidade, organização e eficiência do código. Abaixo estão as tecnologias utilizadas.
 
-- [NextJs](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Styled-Components](https://styled-components.com/)
-- [React-Icons](https://react-icons.github.io/react-icons/)
-- [Axios](https://axios-http.com/ptbr/docs/intro)
+- [NextJs](https://nextjs.org/): Um framework React que oferece renderização híbrida, otimização de desempenho e facilidades de roteamento para aplicativos web modernos.
+- [TypeScript](https://www.typescriptlang.org/): Uma extensão do JavaScript que fornece tipagem estática, ajudando a prevenir erros e melhorar a legibilidade do código.
+- [Styled-Components](https://styled-components.com/): Uma biblioteca que permite estilizar componentes React de forma modular e encapsulada, melhorando a organização dos estilos.
+- [React-Icons](https://react-icons.github.io/react-icons/): Uma biblioteca que oferece uma ampla gama de ícones prontos para uso em projetos React, simplificando a adição de ícones aos componentes.
+- [Axios](https://axios-http.com/ptbr/docs/intro): Uma biblioteca para fazer requisições HTTP em aplicativos JavaScript, facilitando o gerenciamento de chamadas de API e respostas HTTP.
 
 <br>
 
@@ -50,24 +50,28 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
     ├── components
     │   ├── Card
     │   │   └── ...
-    │   │
     │   ├── ProfileCard
     │   │   └── ...
-    │   │
     │   ├── RepoCard
     │   │   └── ...
-    │   │
     │   ├── SearchBar
     │   │   └── ...
-    │   │
     │   ├── Select
     │   │   └── ...
-    │   │
     │   └── SmallCard
     │       └── ...
     │
-    └── lib
-        └── registry.tsx
+    ├── layouts
+    │   └── ...
+    │
+    ├── lib
+    │   └── registry.tsx
+    │
+    └── services
+        ├── interfaces
+        │   └── ...
+        └── users
+            └── ...
 ```
 
 - No diretório `public`, encontramos os arquivos estáticos relacionados à aplicação. Todos esses
@@ -86,6 +90,12 @@ A estrutura de pastas do projeto é organizada da seguinte forma:
 
 - O diretório `lib` contém o arquivo `registry.tsx` que é responsável por lidar com a renderização
   correta e o gerenciamento de estilos do pacote Styled Components em uma aplicação Next.js.
+
+- O diretório `layouts`, possui componentes como `Aside`, `Logo`, `Main` e `UserMain`. Esses componentes são projetados para serem utilizados no grid da aplicação e são responsáveis por estruturar diferentes partes da interface.
+
+- No diretório `services`, a pasta `interfaces` contém a tipagem das requisições de usuário e repositórios, garantindo que o código esteja bem tipado e seguro. A pasta `users` contém o código para realizar as requisições à API do GitHub para obter informações sobre usuários e repositórios, permitindo a construção das funcionalidades de busca e detalhamento.
+
+Essa estrutura organizada e modular contribui para um desenvolvimento mais eficiente, facilitando a adição de novos recursos e a manutenção do código ao longo do tempo.
 
 <br>
 
@@ -111,6 +121,10 @@ Ao clicar em um repositório na lista de repositórios do perfil detalhado, os u
 Um menu contendo todos os usuários pesquisados recentemente é exibido.
 Cada entrada no menu inclui a foto do perfil, nome, login e localização do usuário.
 Ao clicar em um usuário do menu, os dados desse usuário são exibidos na tela principal, similar à funcionalidade de busca.
+
+### Pesquisa e Filtragem de Repositórios
+
+Os usuários podem realizar uma pesquisa nos repositórios do usuário exibido na tela. Uma barra de pesquisa permite aos usuários inserir palavras-chave para buscar repositórios. A pesquisa é feita tanto pelo nome quanto pela descrição dos repositórios. Além disso, uma opção de filtro por linguagem de programação permite aos usuários filtrar os repositórios exibidos de acordo com a linguagem utilizada.
 
 <br>
 
@@ -162,6 +176,33 @@ Para instalar e usar o projeto "teste-leadster", siga as instruções abaixo:
 [Desafio Click Soft](https://desafio-click-soft.vercel.app/).
 
 <br>
+
+## Dificuldades Encontradas
+
+### Paginação de Resultados
+
+Durante o desenvolvimento do projeto, ao coletar informações de repositórios por meio da API do GitHub, deparei-me com o desafio da paginação de resultados. A API do GitHub retorna uma página com até 30 repositórios por vez. No entanto, para perfis com um grande número de repositórios, era necessário realizar múltiplas solicitações para obter todas as informações desejadas.
+
+Para enfrentar esse cenário, adotei a lógica de paginação conforme orientado na documentação oficial do GitHub. Para isso, a documentação de paginação fornece diretrizes sobre como lidar com os Headers de página. Caso a resposta inclua um Header de link com o atributo `rel="next"`, a função utiliza um padrão de expressão regular (nextPattern) para extrair a URL da próxima página. A função, então, repete as etapas anteriores, mas agora usando essa nova URL. Uma vez que o Header de link não contenha mais uma referência para a próxima página, todos os resultados são retornados. Essa abordagem proporciona uma maneira eficiente de coletar os dados paginados, conforme detalhado na [documentação oficial](https://docs.github.com/en/enterprise-server@3.10/rest/guides/using-pagination-in-the-rest-api?apiVersion=2022-11-28).
+
+Essa abordagem garantiu que eu conseguisse coletar de maneira eficiente e organizada todos os dados dos repositórios, independentemente do número de páginas envolvidas.
+
+### Autenticação para Aumento de Limite de Taxa
+
+Durante a execução do projeto, surgiu um desafio relacionado à limitação de taxa na API do GitHub. Devido à necessidade de realizar múltiplas requisições para coletar informações detalhadas dos repositórios, incluindo suas linguagens, frequentemente atingimos o limite de taxa da API.
+
+Essa limitação resultava na seguinte mensagem:
+
+```
+"message": "API rate limit exceeded for 179.127.97.10. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+"documentation_url": "https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+```
+
+Para superar essa restrição e permitir um fluxo contínuo de desenvolvimento, implementamos a autenticação utilizando um token de acesso à API do GitHub. Isso aumentou o limite de taxa de 60 para até 5000 requisições por hora, possibilitando a coleta eficiente de dados dos repositórios.
+
+Essa adaptação me permitiu lidar de maneira mais eficaz com os limites de taxa da API, garantindo um desenvolvimento contínuo e sem interrupções.
+
+Para mais informações sobre o limite de taxa e a autenticação na API do GitHub, consulte a [documentação oficial](https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting).
 
 ## 👩 Autora
 

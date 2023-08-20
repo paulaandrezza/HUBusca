@@ -12,6 +12,7 @@ export const InputContainer = styled.div`
   font-size: ${theme.fontSizes.normal};
   cursor: pointer;
   flex: 1;
+  height: 32px;
 
   display: flex;
   gap: 8px;

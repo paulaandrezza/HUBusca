@@ -9,14 +9,34 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
-    padding: 64px 128px;
+    padding: 32px 16px;
     background: linear-gradient(90deg, rgba(215,230,255,1) 0%, rgba(243,219,246,1) 50%, rgba(240,220,247,1) 55%, rgba(217,227,255,1) 100%);
     overflow-x: hidden;
 
     display: grid;
-    grid-template-columns: 4fr 1fr;
-    grid-template-areas: "main aside";
-    gap: 64px;
+    grid-template-rows: 1fr 1fr auto;
+    grid-template-areas: "logo" "header" "main";
+    gap: 16px;
+
+    @media screen and (min-width: 768px) {
+      padding: 32px 64px;
+      grid-template-columns: 4fr 1fr;
+      grid-template-rows: 1fr auto;
+      grid-template-areas: 
+      "header logo"
+      "main aside";
+      gap: 32px;
+    }
+
+    @media screen and (min-width: 1024px) {
+      padding: 64px 128px;
+      grid-template-columns: 4fr 1fr;
+      grid-template-rows: 1fr auto;
+      grid-template-areas: 
+      "header logo"
+      "main aside";
+      gap: 64px;
+    }
 
     &:after {
       content: "";
