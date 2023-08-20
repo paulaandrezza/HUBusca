@@ -1,10 +1,14 @@
-import { HeaderContainer, Text, Wrapper } from '@/app/theme/sharedStyles';
+import {
+  HeaderContainer,
+  MainContainer,
+  Text,
+  Wrapper,
+} from '@/app/theme/sharedStyles';
 import { Card } from '@/components/Card';
 import { SearchBar } from '@/components/SearchBar';
 import { IUser } from '@/services/interfaces/User';
 import { getUserProfile } from '@/services/users/getUserProfile';
 import { useState } from 'react';
-import { MainContainer } from './style';
 
 export const Main = () => {
   const [currentProfile, setCurrentProfile] = useState('');

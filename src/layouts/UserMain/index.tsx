@@ -1,5 +1,6 @@
 import {
   HeaderContainer,
+  MainContainer,
   Text,
   Wrapper,
   WrapperRow,
@@ -12,7 +13,6 @@ import { IUser } from '@/services/interfaces/User';
 import { getUserRepos } from '@/services/users/getUserRepos';
 import { useEffect, useState } from 'react';
 import { RepoSection } from './RepoSection';
-import { MainContainer } from './style';
 
 export const UserMain = ({
   userInfo,

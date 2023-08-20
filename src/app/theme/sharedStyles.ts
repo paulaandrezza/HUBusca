@@ -135,3 +135,29 @@ export const WrapperBetween = styled.div`
 export const HeaderContainer = styled.div`
   grid-area: header;
 `;
+
+export const MainContainer = styled.main`
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  @media screen and (min-width: 768px) {
+    &:after {
+      content: '';
+      width: 1px;
+      height: 100%;
+      background-color: ${theme.colors['bg-primary']};
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: -16px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    &:after {
+      right: -32px;
+    }
+  }
+`;

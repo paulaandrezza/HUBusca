@@ -19,6 +19,16 @@ const GlobalStyle = createGlobalStyle`
     gap: 16px;
 
     @media screen and (min-width: 768px) {
+      padding: 32px 64px;
+      grid-template-columns: 4fr 1fr;
+      grid-template-rows: 1fr auto;
+      grid-template-areas: 
+      "header logo"
+      "main aside";
+      gap: 32px;
+    }
+
+    @media screen and (min-width: 1024px) {
       padding: 64px 128px;
       grid-template-columns: 4fr 1fr;
       grid-template-rows: 1fr auto;
