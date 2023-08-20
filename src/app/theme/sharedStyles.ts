@@ -107,9 +107,13 @@ export const Wrapper = styled.div<WrapperProps>`
 export const WrapperRow = styled.div<WrapperProps>`
   display: flex;
   align-items: flex-start;
-  gap: ${({ $biggerGap }) => ($biggerGap ? '64px' : '4px')};
+  gap: ${({ $biggerGap }) => ($biggerGap ? '8px' : '4px')};
   color: ${theme.colors['text-secondary']};
   flex-wrap: wrap;
+
+  @media screen and (min-width: 768px) {
+    gap: ${({ $biggerGap }) => ($biggerGap ? '64px' : '4px')};
+  }
 `;
 
 export const WrapperBetween = styled.div`
