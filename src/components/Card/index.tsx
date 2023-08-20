@@ -44,7 +44,6 @@ export const Card = ({ userInfo, setUserInfo }: CardProps) => {
     if (recentProfiles.length > 10) {
       recentProfiles.pop();
     }
-    console.log(recentProfiles);
     localStorage.setItem('recentProfiles', JSON.stringify(recentProfiles));
   };
 

@@ -1,9 +1,11 @@
-import { Text, Wrapper, WrapperArea } from '@/app/theme/sharedStyles';
+import { Button, Text, Wrapper, WrapperArea } from '@/app/theme/sharedStyles';
 import { ProfileCard } from '@/components/ProfileCard';
 import { RepoCard } from '@/components/RepoCard';
 import { SearchBar } from '@/components/SearchBar';
+import { IRepositorie } from '@/services/interfaces/Repositore';
 import { IUser } from '@/services/interfaces/User';
-import { useState } from 'react';
+import { getUserRepos } from '@/services/users/getUserRepos';
+import { useEffect, useState } from 'react';
 import { MainContainer } from './style';
 
 export const UserMain = ({
@@ -12,6 +14,19 @@ export const UserMain = ({
   userInfo: IUser | null | undefined;
 }) => {
   const [currentRepo, setCurrentRepo] = useState('');
+  const [repos, setRepos] = useState<IRepositorie[] | null>([]);
+
+  useEffect(() => {
+    const getRepos = async () => {
+      if (userInfo) {
+        const response = await getUserRepos(userInfo?.login);
+        if (response) {
+          setRepos(response);
+        }
+      }
+    };
+    getRepos();
+  }, [userInfo?.login]);
 
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>
@@ -35,7 +50,10 @@ export const UserMain = ({
         <Wrapper $biggerGap>
           <Text>Perfil do usuário:</Text>
           <ProfileCard userInfo={userInfo} />
-          <RepoCard />
+          {repos?.map((repo: IRepositorie) => (
+            <RepoCard key={repo.id} repoInfo={repo} />
+          ))}
+          <Button>Ver mais</Button>
         </Wrapper>
       </WrapperArea>
     </MainContainer>
