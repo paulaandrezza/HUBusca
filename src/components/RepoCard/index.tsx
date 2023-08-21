@@ -37,12 +37,12 @@ export const RepoCard = ({ repoInfo }: { repoInfo: IRepositorie }) => {
           </Wrapper>
         </Wrapper>
         <Wrapper style={{ justifyContent: 'flex-start' }}>
-          <Button href={repoInfo.html_url}>
+          <Button href={repoInfo.html_url} target="_blank">
             <FaGithub />
             Repositório
           </Button>
           {repoInfo.homepage && (
-            <Button href={repoInfo.homepage}>
+            <Button href={repoInfo.homepage} target="_blank">
               <FaLink />
               Deploy
             </Button>
