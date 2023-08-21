@@ -20,4 +20,8 @@ export const FollowInfo = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 16px;
+
+  & > * {
+    gap: 4px;
+  }
 `;
