@@ -5,7 +5,7 @@ interface SearchBarProps {
   value: string;
   placeholder: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export const SearchBar = ({

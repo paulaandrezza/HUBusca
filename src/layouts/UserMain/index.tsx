@@ -47,22 +47,17 @@ export const UserMain = ({
     }
   };
 
-  const handleKeyDown = async (
-    event: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      if (repos) {
-        const searchTerm = currentSearch.trim();
-        if (searchTerm !== '') {
-          const regex = new RegExp(searchTerm, 'i');
-          setCurrentRegexSearch(regex);
-        } else {
-          setCurrentRegexSearch(undefined);
-        }
+  useEffect(() => {
+    if (repos) {
+      const searchTerm = currentSearch.trim();
+      if (searchTerm !== '') {
+        const regex = new RegExp(searchTerm, 'i');
+        setCurrentRegexSearch(regex);
+      } else {
+        setCurrentRegexSearch(undefined);
       }
     }
-  };
+  }, [currentSearch, repos]);
 
   useEffect(() => {
     const getRepos = async () => {
@@ -92,7 +87,6 @@ export const UserMain = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setCurrentSearch(e.target.value)
             }
-            onKeyDown={handleKeyDown}
           />
           <Select
             options={options}
