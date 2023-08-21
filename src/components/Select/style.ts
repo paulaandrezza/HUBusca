@@ -15,8 +15,7 @@ export const SelectStyled = styled.select`
 
   &:hover,
   &:focus {
-    outline: none;
-    border: 1px solid ${theme.colors['text-button']};
+    outline: 1px solid ${theme.colors['text-button']};
     color: ${theme.colors['text-button']};
   }
 
