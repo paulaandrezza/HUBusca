@@ -6,6 +6,11 @@ Este projeto consiste em uma página de busca de perfis e repositórios do githu
 seletivo na ClickSoft. A página foi criada para demonstrar meus conhecimentos e habilidades em
 desenvolvimento web.
 
+<p align="center">
+    <img alt="Página inicial" src="./public/desktop.jpeg" width="100%">
+    <img alt="Perfil do usuário" src="./public/desktop2.png" width="100%">
+</p>
+
 ## 📝 Requisitos do projeto
 
 1. Permita que na tela principal busquemos os dados de uma pessoa do GitHub através do nome de usuário. E que no resultado apareça a foto, o nome, o login e a localização.
