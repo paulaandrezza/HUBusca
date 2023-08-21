@@ -4,16 +4,22 @@ import { IUser } from '@/services/interfaces/User';
 import { useEffect, useState } from 'react';
 import { AsideContainer } from './style';
 
-export const Aside = ({ isAsideOpen }: { isAsideOpen: boolean }) => {
+export const Aside = ({
+  isAsideOpen,
+  recentProfiles,
+}: {
+  isAsideOpen: boolean;
+  recentProfiles: IUser[];
+}) => {
   const [userInfo, setUserInfo] = useState<IUser[]>();
   const [deleteUser, setDeleteUser] = useState<IUser[]>();
 
   useEffect(() => {
-    const recentProfiles = JSON.parse(
+    const recentProfilesLS = JSON.parse(
       localStorage.getItem('recentProfiles') || '[]'
     );
-    setUserInfo(recentProfiles);
-  }, []);
+    setUserInfo(recentProfilesLS);
+  }, [recentProfiles]);
 
   useEffect(() => {
     if (deleteUser) {

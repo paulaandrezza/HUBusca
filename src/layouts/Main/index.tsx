@@ -8,14 +8,43 @@ import { Card } from '@/components/Card';
 import { SearchBar } from '@/components/SearchBar';
 import { IUser } from '@/services/interfaces/User';
 import { getUserProfile } from '@/services/users/getUserProfile';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
-export const Main = () => {
+export const Main = ({
+  setRecentProfiles,
+}: {
+  setRecentProfiles: Dispatch<SetStateAction<IUser[]>>;
+}) => {
   const [currentProfile, setCurrentProfile] = useState('');
   const [userInfo, setUserInfo] = useState<IUser | null | undefined>();
   const [message, setMessage] = useState(
     'Insira o login de um usuário na barra de pesquisa para procurar'
   );
+
+  const handleUpdateLocalStorage = async (response: IUser) => {
+    const profileDetails = {
+      login: response?.login,
+      location: response?.location,
+      avatar_url: response?.avatar_url,
+    };
+    console.log(profileDetails);
+    const recentProfiles = JSON.parse(
+      localStorage.getItem('recentProfiles') || '[]'
+    );
+    const existingIndex = recentProfiles.findIndex(
+      (profile: typeof profileDetails) => profile.login === response?.login
+    );
+    if (existingIndex !== -1) {
+      recentProfiles.splice(existingIndex, 1);
+    }
+
+    recentProfiles.unshift(profileDetails);
+    if (recentProfiles.length > 10) {
+      recentProfiles.pop();
+    }
+    localStorage.setItem('recentProfiles', JSON.stringify(recentProfiles));
+    setRecentProfiles(recentProfiles);
+  };
 
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>
@@ -25,6 +54,8 @@ export const Main = () => {
       setUserInfo(response);
       if (!response) {
         setMessage('Nenhum usuário encontrado com esse login');
+      } else {
+        await handleUpdateLocalStorage(response);
       }
     }
   };

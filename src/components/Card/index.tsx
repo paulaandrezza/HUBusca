@@ -24,27 +24,6 @@ export const Card = ({ userInfo, setUserInfo }: CardProps) => {
   const handleCardClick = () => {
     setUserInfo(userInfo);
     router.push(`/user/${userInfo?.login}`);
-
-    const profileDetails = {
-      login: userInfo?.login,
-      location: userInfo?.location,
-      avatar_url: userInfo?.avatar_url,
-    };
-    const recentProfiles = JSON.parse(
-      localStorage.getItem('recentProfiles') || '[]'
-    );
-    const existingIndex = recentProfiles.findIndex(
-      (profile: typeof profileDetails) => profile.login === userInfo?.login
-    );
-    if (existingIndex !== -1) {
-      recentProfiles.splice(existingIndex, 1);
-    }
-
-    recentProfiles.unshift(profileDetails);
-    if (recentProfiles.length > 10) {
-      recentProfiles.pop();
-    }
-    localStorage.setItem('recentProfiles', JSON.stringify(recentProfiles));
   };
 
   if (!userInfo) {
