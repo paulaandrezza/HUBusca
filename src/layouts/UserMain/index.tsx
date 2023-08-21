@@ -51,6 +51,7 @@ export const UserMain = ({
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === 'Enter') {
+      event.preventDefault();
       if (repos) {
         const searchTerm = currentSearch.trim();
         if (searchTerm !== '') {
