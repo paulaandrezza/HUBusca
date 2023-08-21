@@ -6,6 +6,7 @@ import { AsideContainer } from './style';
 
 export const Aside = ({ isAsideOpen }: { isAsideOpen: boolean }) => {
   const [userInfo, setUserInfo] = useState<IUser[]>();
+  const [deleteUser, setDeleteUser] = useState<IUser[]>();
 
   useEffect(() => {
     const recentProfiles = JSON.parse(
@@ -14,12 +15,22 @@ export const Aside = ({ isAsideOpen }: { isAsideOpen: boolean }) => {
     setUserInfo(recentProfiles);
   }, []);
 
+  useEffect(() => {
+    if (deleteUser) {
+      setUserInfo(deleteUser);
+    }
+  }, [deleteUser]);
+
   return (
     <AsideContainer isOpen={isAsideOpen}>
       <Wrapper $biggerGap>
         <Text>Pesquisas Recentes:</Text>
         {userInfo?.map((user: IUser) => (
-          <SmallCard key={user.login} userInfo={user} />
+          <SmallCard
+            key={user.login}
+            userInfo={user}
+            setDeleteUser={setDeleteUser}
+          />
         ))}
       </Wrapper>
     </AsideContainer>
