@@ -9,7 +9,7 @@ export const Aside = ({
   recentProfiles,
 }: {
   isAsideOpen: boolean;
-  recentProfiles: IUser[];
+  recentProfiles?: IUser[];
 }) => {
   const [userInfo, setUserInfo] = useState<IUser[]>();
   const [deleteUser, setDeleteUser] = useState<IUser[]>();
